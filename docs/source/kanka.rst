@@ -4,7 +4,7 @@ kanka package
 
 Test class
 ----------
-.. autoclass:: kanka.objects.Entities.Entity
+.. autoclass:: kanka.objects.base.Entity
     :members:
     :undoc-members:
     :show-inheritance:

@@ -45,6 +45,6 @@ class KankaClient(object):
         """
         if c_id is None:
             raise KankaError("Campaign id not specified.")
-        
+
         c = self._request("campaigns/" + str(c_id))
-        return(Campaign(c["data"]))
+        return Campaign(c["data"])
