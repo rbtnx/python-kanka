@@ -1,0 +1,2 @@
+class KankaError(Exception):
+    pass
