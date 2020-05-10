@@ -2,6 +2,7 @@
 :mod:`kanka.user` - User Profile and Campaigns
 """
 from .base import KankaObject
+from .core import Character
 from ..utils import to_datetime
 
 class Profile(KankaObject):
@@ -16,7 +17,7 @@ class Profile(KankaObject):
         self._is_patreon = data["is_patreon"]
 
         super(Profile, self).__init__(data)
-    
+
     @property
     def last_campaign_id(self):
         """
@@ -24,7 +25,7 @@ class Profile(KankaObject):
         :rtype: integer
         """
         return self._last_campaign_id
-    
+
     @property
     def is_patreon(self):
         """
@@ -56,6 +57,13 @@ class Campaign(KankaObject):
         self._members = [m["user"]["name"] for m in data["members"]["data"]]
 
         super(Campaign, self).__init__(data)
+        self.session.base_url = self.session.base_url + "campaigns/" + str(self._id) + "/"
+
+    def character(self, c_id):
+        """
+        Get character of campaign by character ID.
+        """
+        return Character(self.session.get("characters/" + str(c_id)).json()["data"])
 
     @property
     def entry(self):
@@ -64,7 +72,7 @@ class Campaign(KankaObject):
         :rtype: string
         """
         return self._entry
-    
+
     @property
     def visibility(self):
         """
@@ -72,7 +80,7 @@ class Campaign(KankaObject):
         :rtype: string
         """
         return self._visibility
-    
+
     @property
     def created_at(self):
         """
@@ -80,7 +88,7 @@ class Campaign(KankaObject):
         :rtype: datetime
         """
         return self._created_at
-    
+
     @property
     def updated_at(self):
         """
@@ -88,7 +96,7 @@ class Campaign(KankaObject):
         :rtype: datetime
         """
         return self._updated_at
-    
+
     @property
     def members(self):
         """
@@ -96,7 +104,7 @@ class Campaign(KankaObject):
         :rtype: list
         """
         return self._members
-    
+
     def __repr__(self):
         return "Name: {} (id: {})".format(self.name, self.id)
 

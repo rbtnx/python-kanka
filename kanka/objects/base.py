@@ -3,9 +3,9 @@ Kanka entity python classes.
 """
 
 from ..exceptions import KankaError
-from ..utils import to_datetime
+from ..utils import to_datetime, KankaSession
 
-class KankaObject(object):
+class KankaObject():
     """
     Kanka Object with name and id.
     """
@@ -15,6 +15,7 @@ class KankaObject(object):
                 raise KankaError("Missing {}. Couldn't create object.")
         self._id = data["id"]
         self._name = data["name"]
+        self.session = KankaSession()
 
     @property
     def id(self):
@@ -39,9 +40,10 @@ class KankaObject(object):
         return self.__repr__()
 
 class Entity(KankaObject):
+    # pylint: disable=too-many-instance-attributes
     """
-    Base class with common attributes for all Entities as defined in the documentation. Although every field is
-    always present, its value may be None.
+    Base class with common attributes for all Entities as defined in the documentation.
+    Although every field is always present, its value may be None.
     """
     def __init__(self, data):
         self._entry = data["entry"]

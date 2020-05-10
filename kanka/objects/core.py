@@ -22,7 +22,7 @@ class Character(Entity):
         self._traits = [Trait(t) for t in traits]
 
         super(Character, self).__init__(data)
-    
+
     def __repr__(self):
         return "Character: {} (id: {})".format(self._name, self._id)
 
