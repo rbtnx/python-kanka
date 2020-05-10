@@ -36,3 +36,14 @@ def to_datetime(dict_date):
     """
     t = dict_date.split(".")[0]
     return datetime.strptime(t, "%Y-%m-%dT%H:%M:%S")
+
+def append_from(session, data, page):
+    """
+    Collect paginated data.
+    """
+    r = session.request("get", page).json()
+    if r["links"]["next"]:
+        append_from(session, data, r["links"]["next"])
+    data.extend(r["data"])
+    return data
+    

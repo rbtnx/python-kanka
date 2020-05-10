@@ -3,7 +3,7 @@
 """
 from .base import KankaObject
 from .core import Character
-from ..utils import to_datetime
+from ..utils import to_datetime, append_from
 
 class Profile(KankaObject):
     """
@@ -58,6 +58,14 @@ class Campaign(KankaObject):
 
         super(Campaign, self).__init__(data)
         self.session.base_url = self.session.base_url + "campaigns/" + str(self._id) + "/"
+
+    def get_characters(self):
+        """
+        Get list of characters in given campaign.
+        """
+        charlist = append_from(self.session, [], self.session.base_url + "characters")
+        return list(map(lambda l: (l["name"], l["id"]), charlist))
+
 
     def character(self, c_id):
         """
