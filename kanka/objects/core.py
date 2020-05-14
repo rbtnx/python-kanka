@@ -103,7 +103,7 @@ class Location(Entity):
     Location entity.
     """
     def __init__(self, data):
-        self._parent_location_id = data["parent_localtion_id"]
+        self._parent_location_id = data["parent_location_id"]
         self._map = data["map"]
         self._type = data["type"]
 
@@ -176,17 +176,15 @@ class Family(Entity):
         """
         return self._members
 
-class Organisation(Entity): 
+class Organisation(Entity):
     """
     Organisation entity.
     """
     def __init__(self, data):
         self._location_id = data["location_id"]
-        self._organisation_id = data["family_id"]
+        self._organisation_id = data["organisation_id"]
         self._type = data["type"]
-
-        members = data["members"]["data"]
-        self._members = [Character(c) for c in members]
+        self._members = data["members"]
 
         super(Organisation, self).__init__(data)
 

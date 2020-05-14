@@ -2,8 +2,9 @@
 :mod:`kanka.user` - User Profile and Campaigns
 """
 from .base import KankaObject
-from .core import Character
+from .core import *
 from ..utils import to_datetime, append_from
+from ..exceptions import KankaError
 
 class Profile(KankaObject):
     """
@@ -59,19 +60,52 @@ class Campaign(KankaObject):
         super(Campaign, self).__init__(data)
         self.session.base_url = self.session.base_url + "campaigns/" + str(self._id) + "/"
 
-    def get_characters(self):
+    def get_list_of(self, endpoint):
         """
         Get list of characters in given campaign.
         """
-        charlist = append_from(self.session, [], self.session.base_url + "characters")
+        charlist = append_from(self.session, [], self.session.base_url + endpoint)
         return list(map(lambda l: (l["name"], l["id"]), charlist))
 
-
-    def character(self, c_id):
+    def character(self, c_id=None):
         """
         Get character of campaign by character ID.
         """
+        if c_id is None:
+            raise KankaError("No character ID provided.")
         return Character(self.session.api_request("characters/" + str(c_id))["data"])
+
+    def location(self, l_id=None):
+        """
+        Get location of campaign by location ID.
+        """
+        if l_id is None:
+            raise KankaError("No location ID provided.")
+        return Location(self.session.api_request("locations/" + str(l_id))["data"])
+
+    def family(self, f_id=None):
+        """
+        Get family of campaign by family ID.
+        """
+        if f_id is None:
+            raise KankaError("No family ID provided")
+        return Family(self.session.api_request("families/" + str(f_id))["data"])
+
+    def organisation(self, o_id=None):
+        """
+        Get organisation of campaign by organisation ID.
+        """
+        if o_id is None:
+            raise KankaError("No organisation ID provided")
+        return Organisation(self.session.api_request("organisations/" + str(o_id))["data"])
+
+    def item(self, i_id=None):
+        """
+        Get item of campaign by item ID.
+        """
+        if i_id is None:
+            raise KankaError("No item ID provided")
+        return Item(self.session.api_request("items/" + str(i_id))["data"])
 
     @property
     def entry(self):
