@@ -135,20 +135,20 @@ class Location(Entity):
         :rtype: string
         """
         return self._map
-    
-class Family(Entity): 
+
+class Family(Entity):
     """
     Family entity.
     """
     def __init__(self, data):
         self._location_id = data["location_id"]
         self._family_id = data["family_id"]
-        
+
         members = data["members"]["data"]
         self._members = [Character(c) for c in members]
 
         super(Family, self).__init__(data)
-    
+
     def __repr__(self):
         return "Family: {} (id: {})".format(self._name, self._id)
 
@@ -184,12 +184,12 @@ class Organisation(Entity):
         self._location_id = data["location_id"]
         self._organisation_id = data["family_id"]
         self._type = data["type"]
-        
+
         members = data["members"]["data"]
         self._members = [Character(c) for c in members]
 
         super(Organisation, self).__init__(data)
-    
+
     def __repr__(self):
         return "Organisation: {} (id: {})".format(self._name, self._id)
 
@@ -224,7 +224,7 @@ class Organisation(Entity):
         :rtype: list of Entity::Character
         """
         return self._members
-    
+
 class Item(Entity):
     """
     Item entity.
@@ -233,12 +233,12 @@ class Item(Entity):
         self._location_id = data["location_id"]
         self._character_id = data["character_id"]
         self._type = data["type"]
-        
+
         super(Item, self).__init__(data)
-    
+
     def __repr__(self):
         return "Item: {} (id: {})".format(self._name, self._id)
-    
+
     @property
     def location_id(self):
         """
@@ -246,7 +246,7 @@ class Item(Entity):
         :rtype: integer
         """
         return self._location_id
-    
+
     @property
     def character_id(self):
         """
@@ -254,7 +254,7 @@ class Item(Entity):
         :rtype: integer
         """
         return self._character_id
-    
+
     @property
     def type(self):
         """

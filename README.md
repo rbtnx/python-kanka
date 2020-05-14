@@ -1,4 +1,4 @@
-# python-kanka
+# python-kanka ![](https://github.com/rbtnx/python-kanka/workflows/build/badge.svg)
 This is a python interface to the API from https://kanka.io. It's still early development so use it at your own risk.
 
 To get started you need an API token. Create the client with
@@ -16,3 +16,5 @@ my_campaign.get_characters()
 char = my_campaign.character({character_id)
 char.entry
 ```
+
+Compatible with Python >= 3.6
