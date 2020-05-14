@@ -71,7 +71,7 @@ class Campaign(KankaObject):
         """
         Get character of campaign by character ID.
         """
-        return Character(self.session.get("characters/" + str(c_id)).json()["data"])
+        return Character(self.session.api_request("characters/" + str(c_id))["data"])
 
     @property
     def entry(self):

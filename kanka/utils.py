@@ -4,7 +4,7 @@
 
 from datetime import datetime
 from requests_toolbelt.sessions import BaseUrlSession
-from .exceptions import KankaError
+from .exceptions import KankaAPIError
 
 API_BASE_ENDPOINT = 'https://kanka.io/api/1.0/'
 
@@ -23,9 +23,18 @@ class KankaSession(BaseUrlSession):
         self.headers.update(self.auth_header)
 
     def api_request(self, endpoint=''):
-        if self.token == '':
-            raise KankaError("No token given")
-        return self.get(endpoint).json()
+        """
+        Requests data from given API endpoint.
+        Returns json data on success.
+        """
+        r = self.get(endpoint)
+        if r.status_code == 401:
+            raise KankaAPIError("Authentication error. Wrong token or no token given.")
+        if r.status_code == 404:
+            raise KankaAPIError("Page not found. "
+                    "Request from a non-existent endpoint: {}.".format(r.url))
+
+        return r.json()
 
     def __repr__(self):
         return "Kanka Session to {}".format(self.base_url)
@@ -41,9 +50,10 @@ def append_from(session, data, page):
     """
     Collect paginated data.
     """
-    r = session.request("get", page).json()
-    if r["links"]["next"]:
-        append_from(session, data, r["links"]["next"])
+    r = session.api_request(page)
+    url_next = r["links"]["next"]
+    if url_next:
+        append_from(session, data, url_next[len(session.base_url):])
     data.extend(r["data"])
     return data
     
