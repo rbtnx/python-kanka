@@ -34,7 +34,7 @@ class KankaObject():
         return self._name
 
     def __repr__(self):
-        return "Object name: {} (id: {})".format(self._name, self._id)
+        return "{}: {} (id: {})".format(self.__class__.__name__, self._name, self._id)
 
     def __str__(self):
         return self.__repr__()
@@ -124,12 +124,6 @@ class Entity(KankaObject):
         """
         return self._updated_by
 
-    def __repr__(self):
-        return "Entity: {} (id: {})".format(self._name, self._id)
-
-    def __str__(self):
-        return self.__repr__()
-
 class Trait(KankaObject):
     """
     Trait object used by character entity.
@@ -174,9 +168,3 @@ class Trait(KankaObject):
         :rtype: integer
         """
         return self._default_order
-
-    def __repr__(self):
-        return "Trait name: {} (id: {})".format(self._name, self._id)
-
-    def __str__(self):
-        return self.__repr__()

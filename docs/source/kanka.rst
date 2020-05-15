@@ -1,7 +1,3 @@
-kanka package
-=============
-
-
 Test class
 ----------
 .. autoclass:: kanka.objects.base.Entity
@@ -9,32 +5,44 @@ Test class
     :undoc-members:
     :show-inheritance:
 
-Submodules
-----------
 
-kanka.api module
-----------------
+**kanka.api** - Core API functions
+----------------------------------
 
 .. automodule:: kanka.api
    :members:
    :undoc-members:
    :show-inheritance:
 
-kanka.exceptions module
------------------------
+**kanka.utils** - Helper function
+---------------------------------
+
+.. automodule:: kanka.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**kanka.objects** - Entity classes
+----------------------------------
+
+.. toctree::
+   maxdepth: 1
+
+   user
+
+.. automodule:: kanka.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**kanka.exceptions** - Exceptions
+---------------------------------
 
 .. automodule:: kanka.exceptions
    :members:
    :undoc-members:
    :show-inheritance:
 
-kanka.utils module
-------------------
-
-.. automodule:: kanka.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 
 Module contents

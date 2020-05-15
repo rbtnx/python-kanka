@@ -1,7 +1,11 @@
-kanka
-=====
+Modules
+=======
+.. module:: kanka
+In this part of the documentation a reference to the main methods and objects is given.
 
-.. toctree::
-   :maxdepth: 4
 
-   kanka
+Client Object
+-------------
+.. autoclass:: KankaClient
+   :members:
+   :inherited-members:

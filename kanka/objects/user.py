@@ -1,14 +1,14 @@
 """
 :mod:`kanka.user` - User Profile and Campaigns
 """
+import kanka.objects.core as core
 from .base import KankaObject
-from .core import *
 from ..utils import to_datetime, append_from
 from ..exceptions import KankaError
 
 class Profile(KankaObject):
     """
-    Profile information.
+    Kanka Profile information.
     """
     def __init__(self, data):
         self._avatar = data["avatar"]
@@ -34,12 +34,6 @@ class Profile(KankaObject):
         :rtype: Boolean
         """
         return self._is_patreon
-
-    def __repr__(self):
-        return "User: {} (id: {})".format(self._name, self._id)
-
-    def __str__(self):
-        return self.__repr__()
 
 
 class Campaign(KankaObject):
@@ -73,7 +67,7 @@ class Campaign(KankaObject):
         """
         if c_id is None:
             raise KankaError("No character ID provided.")
-        return Character(self.session.api_request("characters/" + str(c_id))["data"])
+        return core.Character(self.session.api_request("characters/" + str(c_id))["data"])
 
     def location(self, l_id=None):
         """
@@ -81,7 +75,7 @@ class Campaign(KankaObject):
         """
         if l_id is None:
             raise KankaError("No location ID provided.")
-        return Location(self.session.api_request("locations/" + str(l_id))["data"])
+        return core.Location(self.session.api_request("locations/" + str(l_id))["data"])
 
     def family(self, f_id=None):
         """
@@ -89,7 +83,7 @@ class Campaign(KankaObject):
         """
         if f_id is None:
             raise KankaError("No family ID provided")
-        return Family(self.session.api_request("families/" + str(f_id))["data"])
+        return core.Family(self.session.api_request("families/" + str(f_id))["data"])
 
     def organisation(self, o_id=None):
         """
@@ -97,7 +91,7 @@ class Campaign(KankaObject):
         """
         if o_id is None:
             raise KankaError("No organisation ID provided")
-        return Organisation(self.session.api_request("organisations/" + str(o_id))["data"])
+        return core.Organisation(self.session.api_request("organisations/" + str(o_id))["data"])
 
     def item(self, i_id=None):
         """
@@ -105,7 +99,33 @@ class Campaign(KankaObject):
         """
         if i_id is None:
             raise KankaError("No item ID provided")
-        return Item(self.session.api_request("items/" + str(i_id))["data"])
+        return core.Item(self.session.api_request("items/" + str(i_id))["data"])
+
+    def note(self, n_id=None):
+        """
+        Get note of campaign by note ID.
+        """
+        if n_id is None:
+            raise KankaError("No note ID provided")
+        return core.Note(self.session.api_request("notes/" + str(n_id))["data"])
+
+    def race(self, r_id=None):
+        """
+        Get race of campaign by race ID.
+        """
+        if r_id is None:
+            raise KankaError("No race ID provided")
+        return core.Race(self.session.api_request("races/" + str(r_id))["data"])
+
+    def quest(self, q_id=None):
+        """
+        Get quest of campaign by quest ID.
+        """
+        if q_id is None:
+            raise KankaError("No quest ID provided")
+        temp_quest = core.Quest(self.session.api_request("quests/" + str(q_id))["data"])
+        temp_quest.session = self.session
+        return temp_quest
 
     @property
     def entry(self):
@@ -146,9 +166,3 @@ class Campaign(KankaObject):
         :rtype: list
         """
         return self._members
-
-    def __repr__(self):
-        return "Name: {} (id: {})".format(self.name, self.id)
-
-    def __str__(self):
-        return self.__repr__()

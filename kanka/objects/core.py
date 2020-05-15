@@ -5,9 +5,6 @@ Contains classes for the different entities.
 from .base import Entity, Trait
 
 class Character(Entity):
-    """
-    Charakter entity.
-    """
     def __init__(self, data):
         self._location_id = data["location_id"]
         self._title = data["title"]
@@ -22,9 +19,6 @@ class Character(Entity):
         self._traits = [Trait(t) for t in traits]
 
         super(Character, self).__init__(data)
-
-    def __repr__(self):
-        return "Character: {} (id: {})".format(self._name, self._id)
 
     @property
     def location_id(self):
@@ -99,18 +93,12 @@ class Character(Entity):
         return self._traits
 
 class Location(Entity):
-    """
-    Location entity.
-    """
     def __init__(self, data):
         self._parent_location_id = data["parent_location_id"]
         self._map = data["map"]
         self._type = data["type"]
 
         super(Location, self).__init__(data)
-
-    def __repr__(self):
-        return "Location: {} (id: {})".format(self._name, self._id)
 
     @property
     def parent_location_id(self):
@@ -137,9 +125,6 @@ class Location(Entity):
         return self._map
 
 class Family(Entity):
-    """
-    Family entity.
-    """
     def __init__(self, data):
         self._location_id = data["location_id"]
         self._family_id = data["family_id"]
@@ -148,9 +133,6 @@ class Family(Entity):
         self._members = [Character(c) for c in members]
 
         super(Family, self).__init__(data)
-
-    def __repr__(self):
-        return "Family: {} (id: {})".format(self._name, self._id)
 
     @property
     def location_id(self):
@@ -177,9 +159,6 @@ class Family(Entity):
         return self._members
 
 class Organisation(Entity):
-    """
-    Organisation entity.
-    """
     def __init__(self, data):
         self._location_id = data["location_id"]
         self._organisation_id = data["organisation_id"]
@@ -187,9 +166,6 @@ class Organisation(Entity):
         self._members = data["members"]
 
         super(Organisation, self).__init__(data)
-
-    def __repr__(self):
-        return "Organisation: {} (id: {})".format(self._name, self._id)
 
     @property
     def location_id(self):
@@ -224,18 +200,12 @@ class Organisation(Entity):
         return self._members
 
 class Item(Entity):
-    """
-    Item entity.
-    """
     def __init__(self, data):
         self._location_id = data["location_id"]
         self._character_id = data["character_id"]
         self._type = data["type"]
 
         super(Item, self).__init__(data)
-
-    def __repr__(self):
-        return "Item: {} (id: {})".format(self._name, self._id)
 
     @property
     def location_id(self):
@@ -260,3 +230,53 @@ class Item(Entity):
         :rtype: string
         """
         return self._type
+
+class Note(Entity):
+    def __init__(self, data):
+        self._type = data["type"]
+        self._is_pinned = data["is_pinned"]
+
+        super(Note, self).__init__(data)
+
+    @property
+    def type(self):
+        """
+        :return: Note type
+        :rtype: string
+        """
+        return self._type
+
+class Race(Entity):
+    def __init__(self, data):
+        self._type = data["type"]
+        self._race_id = data["race_id"]
+
+        super(Race, self).__init__(data)
+
+    @property
+    def type(self):
+        """
+        :return: Race type
+        :rtype: "string"
+        """
+        return self._type
+
+    @property
+    def race_id(self):
+        """
+        :return: Race ID
+        :rtype: integer
+        """
+        return self._race_id
+
+class Quest(Entity):
+    def __init__(self, data):
+        self._character_id = data["character_id"]
+        self._type = data["type"]
+        self._is_completed = data["is_completed"]
+        self._quest_id = data["quest_id"]
+        self._character_count = data["characters"]
+
+        self._location_count = data["locations"]
+
+        super(Quest, self).__init__(data)
