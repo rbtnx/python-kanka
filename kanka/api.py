@@ -1,10 +1,11 @@
 """
 Main Kanka API functions and classes
 """
+from datetime import datetime
+from dacite import from_dict, Config
 from .exceptions import KankaError
-from .utils import KankaSession
+from .utils import KankaSession, to_datetime
 from .objects.user import Profile, Campaign
-
 
 
 class KankaClient(object):
@@ -36,8 +37,11 @@ class KankaClient(object):
         if c_id is None:
             raise KankaError("Campaign id not specified.")
 
-        endpoint = "campaigns/" + str(c_id)
-        campaign = Campaign(self.session.api_request(endpoint)["data"])
-        campaign.session.headers.update(self.session.headers)
+        endpoint = f'campaigns/{str(c_id)}'
+        campaign = from_dict(
+            data_class=Campaign,
+            data=self.session.api_request(endpoint)["data"],
+            config=Config(type_hooks={datetime: to_datetime}))
+        campaign.__post_init__(api_token=self.session.token)
 
         return campaign
