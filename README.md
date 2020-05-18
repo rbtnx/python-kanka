@@ -4,6 +4,7 @@ This is a python interface to the API from https://kanka.io. It's still early de
 ## Installation
 This module is compatible with Python >= 3.7. When inside the repository root, install the module with
 ```
+pip install -r requirements.txt
 python setup.py install
 ```
 A virtual environment is recommended.
