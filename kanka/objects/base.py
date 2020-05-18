@@ -7,7 +7,7 @@ every core entitiy is derived from Entity
 from datetime import datetime
 from dataclasses import dataclass
 from typing import Optional
-from ..api import KankaSession
+from ..utils import KankaSession
 
 @dataclass
 class KankaObject:

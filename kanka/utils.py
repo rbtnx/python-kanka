@@ -4,6 +4,7 @@
 
 from datetime import datetime
 from requests_toolbelt.sessions import BaseUrlSession
+from dacite import from_dict, Config
 from .exceptions import KankaAPIError
 
 API_BASE_ENDPOINT = 'https://kanka.io/api/1.0/'
@@ -50,3 +51,11 @@ def append_from(session, data, page):
         append_from(session, data, url_next[len(session.base_url):])
     data.extend(r["data"])
     return data
+
+def create_entity(Entity_object, data):
+    """ Creates entitiy objects from dictionary. """
+    entity = from_dict(
+        data_class=Entity_object,
+        data=data,
+        config=Config(type_hooks={datetime: to_datetime}))
+    return entity
