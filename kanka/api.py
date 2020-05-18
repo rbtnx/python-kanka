@@ -9,7 +9,7 @@ from .utils import to_datetime, create_entity, KankaSession
 from .objects.user import Profile, Campaign
 
 entitylist = ["character", "location", "organisation", "note",
-              "race", "quest", "journal", "family"]
+              "race", "quest", "journal"]
 
 def bind_method(entity):
     def _method(self, entity_id):
@@ -54,3 +54,17 @@ class KankaClient(object):
         campaign.__post_init__(api_token=self.session.token)
 
         return campaign
+
+    def import_campaign(self, c_id=None):
+        if c_id is None:
+            raise KankaError("Campaign id not specified.")
+
+        data = self.session.api_request(f'campaigns/{str(c_id)}')
+        for entity in entitylist:
+            if entity[-1] == "y":
+                entity = entity.replace("y", "ie")
+            endpoint = f'{entity}s'
+            data["data"][endpoint] = self.session.api_request(f'campaigns/{str(c_id)}/{endpoint}')["data"]
+
+        imported = create_entity(Entity_object=stored.StoredCampaign, data=data["data"])
+        return imported
