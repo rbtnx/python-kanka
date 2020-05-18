@@ -5,10 +5,23 @@
 from dataclasses import dataclass
 from datetime import datetime
 from dacite import from_dict, Config
-import kanka.objects.core as core
+import kanka.objects.stored as stored
 from .base import KankaObject
 from ..utils import to_datetime, append_from
 from ..exceptions import KankaError
+
+def bind_method(entity):
+    def _method(self, entity_id):
+        if entity_id:
+            endpoint = f'{entity}s/{str(entity_id)}'
+            data = self.session.api_request(endpoint)["data"]
+            classname = getattr(stored, f'Stored{entity.title()}')
+            return from_dict(
+                data_class=classname,
+                data=data,
+                config=Config(type_hooks={datetime: to_datetime}))
+        raise KankaError("No character ID provided.")
+    return _method
 
 @dataclass(repr=False)
 class Profile(KankaObject):
@@ -47,7 +60,7 @@ class Campaign(KankaObject):
             endpoint = f'characters/{str(c_id)}'
             data = self.session.api_request(endpoint)["data"]
             return from_dict(
-                data_class=core.Character,
+                data_class=stored.StoredCharacter,
                 data=data,
                 config=Config(type_hooks={datetime: to_datetime}))
         raise KankaError("No character ID provided.")

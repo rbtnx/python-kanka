@@ -6,13 +6,13 @@ every core entitiy is derived from Entity
 
 from datetime import datetime
 from dataclasses import dataclass
-from typing import List
-from ..utils import KankaSession
+from typing import Optional
+from ..api import KankaSession
 
 @dataclass
-class KankaObject():
-    id: int
+class KankaObject:
     name: str
+    id: Optional[int]
 
     def __post_init__(self, api_token=''):
         self.session = KankaSession(api_token=api_token)
@@ -26,13 +26,20 @@ class KankaObject():
 @dataclass(repr=False)
 class Entity(KankaObject):
     entry: str
-    image: str
     image_full: str
     image_thumb: str
-    is_private: bool
     entity_id: int
-    tags: List[str]
+    #tags: List[str]
     created_at: datetime
     created_by: int
     updated_at: datetime
     updated_by: int
+    is_private: Optional[bool] = None
+    image: Optional[str] = None
+
+@dataclass(repr=False)
+class Trait(KankaObject):
+    entry: str
+    section: str
+    is_private: bool
+    default_order: int

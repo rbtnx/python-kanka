@@ -29,8 +29,8 @@ class KankaSession(BaseUrlSession):
         if r.status_code == 401:
             raise KankaAPIError("Authentication error. Wrong token or no token given.")
         if r.status_code == 404:
-            raise KankaAPIError("Page not found. "
-                    "Request from a non-existent endpoint: {}.".format(r.url))
+            raise KankaAPIError(
+                "Page not found. Request from a non-existent endpoint: {}.".format(r.url))
 
         return r.json()
 
@@ -43,13 +43,10 @@ def to_datetime(dict_date):
     return datetime.strptime(t, "%Y-%m-%dT%H:%M:%S")
 
 def append_from(session, data, page):
-    """
-    Collect paginated data.
-    """
+    """ Collect paginated data."""
     r = session.api_request(page)
     url_next = r["links"]["next"]
     if url_next:
         append_from(session, data, url_next[len(session.base_url):])
     data.extend(r["data"])
     return data
-    
