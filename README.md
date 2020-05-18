@@ -4,12 +4,12 @@ This is a python interface to the API from https://kanka.io. It's still early de
 ## Installation
 This module is compatible with Python >= 3.7. When inside the repository root, install the module with
 ```
-pip setup.py install
+python setup.py install
 ```
 A virtual environment is recommended.
 
 ## Usage
-To get started you need an API token, see <https://kanka.io/en-US/docs/1.0/setup> (oAuth is not supported by this module):
+To get started you need an API token, see <https://kanka.io/en-US/docs/1.0/setup> (oAuth is not supported by this module).
 
 Create the client with
 ```python
