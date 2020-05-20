@@ -4,7 +4,6 @@ from typing import List, Optional
 from dataclasses import dataclass
 import kanka.objects.core as core
 from .base import Entity
-from .user import Campaign
 
 @dataclass(repr=False)
 class StoredCharacter(core.Character, Entity):

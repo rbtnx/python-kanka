@@ -9,7 +9,7 @@ from .utils import to_datetime, create_entity, KankaSession
 from .objects.user import Profile, Campaign
 
 entitylist = ["character", "location", "organisation", "note",
-              "race", "quest", "journal"]
+              "race", "quest", "journal", "family"]
 
 def bind_method(entity):
     def _method(self, entity_id):
