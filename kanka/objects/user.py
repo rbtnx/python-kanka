@@ -2,8 +2,9 @@
 :mod:`kanka.user` - User Profile and Campaigns
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import datetime
+import kanka.objects.core as core
 from .base import KankaObject
 from ..exceptions import KankaError
 from ..utils import append_from
@@ -59,3 +60,23 @@ class Campaign(KankaObject):
                 match.extend([getattr(self, item["type"])(item["id"])])
             return match
         raise KankaError("An error occured.")
+
+    def delete(self, entity=None, id=None):
+        """Deletes an entity."""
+        for attr in [entity, id]:
+            if attr is None:
+                raise KankaError("Missing either entity type or entity id.")
+        url = self.session.base_url + f'{entity}s/{str(id)}'
+        r = self.session.delete(url=url, headers=self.session.headers)
+        if r.status_code == 204:
+            return True
+        return False
+
+    def new_entity(self, entity=None):
+        """ Creates new entity. """
+        if entity:
+            spawn = getattr(core, entity.title())(name=f'New {entity}', id=None)
+            spawn.__post_init__(api_token=self.session.token)
+            spawn.session.base_url = self.session.base_url + f'{entity}s'
+            return spawn
+        raise KankaError("No entity type given. Specify a type, ie new_entity(entity=\"location\"")
