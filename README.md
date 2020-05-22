@@ -84,17 +84,17 @@ At the moment not all entities are implemented, see table below.
 |:------------|:----------------------:|:----------------------:|:----------------------:|:----------------------:|
 |Profile      |:heavy_check_mark:      ||||
 |Campaign     |:heavy_check_mark:      ||||
-|Character    |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|heavy_check_mark:|
-|Location     |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|heavy_check_mark:|
+|Character    |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|Location     |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 |Family       |:heavy_check_mark:      |:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|
-|Organisation |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|heavy_check_mark:|
+|Organisation |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 |Item         |:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|
-|Note         |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|heavy_check_mark:|
+|Note         |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 |Event        |:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|
 |Calendar     |:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|
-|Race         |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|heavy_check_mark:|
-|Quest        |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|heavy_check_mark:|
-|Journal      |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|heavy_check_mark:|
+|Race         |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|Quest        |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
+|Journal      |:heavy_check_mark:      |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|
 |Ability      |:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|
 |Tag          |:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|
 |Conversation |:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|:heavy_multiplication_x:|
