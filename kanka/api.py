@@ -25,7 +25,11 @@ def bind_method(entity):
     return _method
 
 class KankaClient(object):
-    """ Interact with kanka API with this client."""
+    """ Interact with kanka API with this client.
+    
+    This class stores the kanka API token in a session object (see `~utils.KankaSession`).
+    Also provides methods to retrieve campain and profile data.
+    """
     def __init__(self, token=''):
         self.session = KankaSession(api_token=token)
 
@@ -36,7 +40,12 @@ class KankaClient(object):
         return profile
 
     def get_campaigns(self):
-        """ Get list of entities."""
+        """ Get list of campaigns.
+
+        This function requests data from https://kanka.io/api/1.0/campaigns.
+        :return: Array with campaigns
+        :rtype: List of `~objects.user.Campaign`
+        """
         data = self.session.api_request("campaigns")["data"]
         campaigns = [create_entity(Campaign, cdata) for cdata in data]
         return campaigns
