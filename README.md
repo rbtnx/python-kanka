@@ -8,6 +8,7 @@ pip install -r requirements.txt
 python setup.py install
 ```
 A virtual environment is recommended.
+***
 
 ## Usage
 To get started you need an API token, see <https://kanka.io/en-US/docs/1.0/setup> (oAuth is not supported by this module).
@@ -36,6 +37,7 @@ last_session = my_campaign.journal({session_id})
 last_session.name
 ```
 
+### **Searching for entities**
 You can search for entities using the [/search](https://kanka.io/en/docs/1.0/search) endpoint of the kanka API:
 ```python
 match = my_campaign.search("Legolas")
@@ -47,6 +49,8 @@ match[0].name    # match[0] is the first list entry,
 match[2].map_url # match[2] is the third list entry,
                  # a StoredLocation object
 ```
+
+### **Download campaign data**
 
 You can also import all the entities of a campaign into a `StoredCampaign` object:
 ```python
