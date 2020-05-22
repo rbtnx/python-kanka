@@ -5,6 +5,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from .base import KankaObject
+from ..exceptions import KankaError
 from ..utils import append_from
 
 @dataclass(repr=False)
@@ -38,3 +39,23 @@ class Campaign(KankaObject):
     def get_list_of(self, endpoint):
         charlist = append_from(self.session, [], self.session.base_url + endpoint)
         return list(map(lambda l: (l["name"], l["id"]), charlist))
+
+    def search(self, expression=None):
+        """ Search for entities in the campaign.
+        This function uses the /search/{expression} endpoint of the kanka API.
+        Requesting from this endpoint returns entities with matching expressions
+        inside the name field. It seemes that a maximum of ten matching entites are
+        returned with every request (todo: verify). The search is not case sensitive.
+
+        :param expression: Term to search for. Doesn't need to match the entity name
+                            commpletly, can contain parts of the name
+        :type expression: string
+        :return: List of entities with matched names
+        """
+        if expression:
+            match = []
+            data = self.session.api_request(f'search/{str(expression)}')
+            for item in data["data"]:
+                match.extend([getattr(self, item["type"])(item["id"])])
+            return match
+        raise KankaError("An error occured.")
