@@ -10,7 +10,19 @@ from .exceptions import KankaAPIError
 API_BASE_ENDPOINT = 'https://kanka.io/api/1.0/'
 
 class KankaSession(BaseUrlSession):
-    """ Store session data."""
+    """ Store session data.
+    For every API request a header with the API token has to be provided.
+    This object stores the token and the header and provides methods for
+    GET, POST and UPDATE requests with the needed header. Also this object
+    can be handed down from the KankaClient object to entitiy objects in case
+    they need to make API requests.
+
+    :param api_endpoint: Base endpoint to the kanka API. Default: API_BASE_ENDPOINT
+    :param api_token: kanka API token. Default: empty string
+    :type api_endpoint: string
+    :type api_token: string
+    """
+
     def __init__(self, api_endpoint=API_BASE_ENDPOINT, api_token=''):
         self.base_url = api_endpoint
         self.token = api_token
@@ -24,7 +36,8 @@ class KankaSession(BaseUrlSession):
     def api_request(self, endpoint=''):
         """
         Requests data from given API endpoint.
-        Returns json data on success.
+        :return: json data from given endpoint
+        :rtype: dict
         """
         r = self.get(endpoint)
         if r.status_code == 401:
@@ -39,7 +52,12 @@ class KankaSession(BaseUrlSession):
         return "Kanka Session to {}".format(self.base_url)
 
 def to_datetime(dict_date):
-    """ Convert json date entry to datetime."""
+    """ Convert json date entry to datetime.
+    :param dict_date: Date as retrieved from kanka in the format "YYYY-mm-dd HH:MM:SS.000000"
+    :type dict_date: string
+    :return: Date converted to python datetime object
+    :rtype: datetime.datetime
+    """
     t = dict_date.split(".")[0]
     return datetime.strptime(t, "%Y-%m-%dT%H:%M:%S")
 

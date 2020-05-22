@@ -25,7 +25,6 @@ class KankaObject:
 
 @dataclass(repr=False)
 class Entity(KankaObject):
-    entry: str
     image_full: str
     image_thumb: str
     entity_id: int
@@ -34,6 +33,7 @@ class Entity(KankaObject):
     created_by: int
     updated_at: datetime
     updated_by: int
+    entry: Optional[str] = None
     is_private: Optional[bool] = None
     image: Optional[str] = None
 

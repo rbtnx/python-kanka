@@ -1,5 +1,6 @@
 """ Objects to store downloaded information about entities."""
 
+from typing import List, Optional
 from dataclasses import dataclass
 import kanka.objects.core as core
 from .base import Entity
@@ -35,3 +36,17 @@ class StoredJournal(core.Journal, Entity):
 @dataclass(repr=False)
 class StoredFamily(core.Family, Entity):
     pass
+
+@dataclass(repr=False)
+class StoredCampaign():
+    name: str
+    id: int
+    entry: Optional[str] = None
+    characters: Optional[List[StoredCharacter]] = None
+    locations: Optional[List[StoredLocation]] = None
+    organisations: Optional[List[StoredOrganisation]] = None
+    notes: Optional[List[StoredNote]] = None
+    races: Optional[List[StoredRace]] = None
+    quests: Optional[List[StoredQuest]] = None
+    journals: Optional[List[StoredJournal]] = None
+    families: Optional[List[StoredFamily]] = None

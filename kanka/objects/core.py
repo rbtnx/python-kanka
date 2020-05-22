@@ -19,7 +19,7 @@ class Core(KankaObject):
 class Character(Core):
     location_id: Optional[int] = None
     title: Optional[str] = None
-    age: Optional[int] = None
+    age: Optional[str] = None
     sex: Optional[str] = None
     race_id: Optional[int] = None
     type: Optional[str] = None
