@@ -5,7 +5,7 @@ from datetime import datetime
 from dacite import from_dict, Config
 import kanka.objects.stored as stored
 from .exceptions import KankaError
-from .utils import to_datetime, create_entity, KankaSession
+from .utils import to_datetime, create_entity, KankaSession, append_from
 from .objects.user import Profile, Campaign
 
 entitylist = ["character", "location", "organisation", "note",
@@ -73,7 +73,7 @@ class KankaClient(object):
             if entity[-1] == "y":
                 entity = entity.replace("y", "ie")
             endpoint = f'{entity}s'
-            data["data"][endpoint] = self.session.api_request(f'campaigns/{str(c_id)}/{endpoint}')["data"]
+            data["data"][endpoint] = append_from(self.session, [], f'campaigns/{str(c_id)}/{endpoint}')
 
         imported = create_entity(Entity_object=stored.StoredCampaign, data=data["data"])
         return imported
