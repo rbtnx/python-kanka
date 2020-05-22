@@ -23,17 +23,36 @@ my_campaign.get_list_of("characters")
 my_campaign.get_list_of("journals")
 
 char = my_campaign.character({character_id)
-char.entry
+char.age
 last_session = my_campaign.journal({session_id})
 last_session.name
+```
+
+You can search for entities using the [/search](https://kanka.io/en/docs/1.0/search) endpoint of the kanka API:
+```python
+match = my_campaign.search("Legolas")
+```
+This returns a list of entity objects with names matching the search term. If for example the term `"Legolas"` matches twos characters and one location, the variable `match` will contain two `StoredCharacter` objects and one `StoredLocation` object as a `list`. You can access the entity's attributes as shown above with
+```python
+match[0].name    # match[0] is the first list entry,
+                   # a StoredCharacter object
+match[2].map_url # match[2] is the third list entry,
+                   # a StoredLocation object
+```
+
+You can also import all the entities of a campaign into a `StoredCampaign` object:
+```python
+my_campaign = client.import_campaig({campaign_id})
+my_campaign.characters         # displays a list of all characters
+my_campaign.characters[3].name # displays the name of the fourth character in the list
 ```
 
 At the moment not all entities are implemented, see table below.
 
 | Entity name | retrieve | create | update |
 |:------------|:----------------------:|:----------------------:|:----------------------:|
-|Profile      |:heavy_check_mark:      |:heavy_multiplication_x:|:heavy_multiplication_x:|
-|Campaign     |:heavy_check_mark:      |:heavy_multiplication_x:|:heavy_multiplication_x:|
+|Profile      |:heavy_check_mark:      |||
+|Campaign     |:heavy_check_mark:      |||
 |Character    |:heavy_check_mark:      |:heavy_multiplication_x:|:heavy_multiplication_x:|
 |Location     |:heavy_check_mark:      |:heavy_multiplication_x:|:heavy_multiplication_x:|
 |Family       |:heavy_check_mark:      |:heavy_multiplication_x:|:heavy_multiplication_x:|
