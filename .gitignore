@@ -1,6 +1,9 @@
 # vscode stuff
 .vscode/
 
+# requests cache
+cache.sqlite
+
 # sphinx documentation
 docs/source/_*
 docs/make.bat
