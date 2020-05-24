@@ -4,12 +4,13 @@
 
 from datetime import datetime
 from requests_toolbelt.sessions import BaseUrlSession
+from requests_cache.core import CachedSession
 from dacite import from_dict, Config
 from .exceptions import KankaAPIError
 
 API_BASE_ENDPOINT = 'https://kanka.io/api/1.0/'
 
-class KankaSession(BaseUrlSession):
+class KankaSession(BaseUrlSession, CachedSession):
     """ Store session data.
     For every API request a header with the API token has to be provided.
     This object stores the token and the header and provides methods for
