@@ -78,3 +78,10 @@ def create_entity(Entity_object, data):
         data=data,
         config=Config(type_hooks={datetime: to_datetime}))
     return entity
+
+def pluralize(text):
+    """Form plural of text, eg location -> locations,
+    family -> families, etc. Only return lower case characters."""
+    if text[-1] == 'y':
+        text = f'{text[0:-1]}ie'
+    return f'{text}s'.lower()

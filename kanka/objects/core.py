@@ -5,7 +5,6 @@
 from typing import Optional, List
 from dataclasses import dataclass, asdict
 from .base import Trait, KankaObject
-from ..utils import KankaSession
 
 @dataclass(repr=False)
 class Core(KankaObject):
@@ -14,18 +13,6 @@ class Core(KankaObject):
     is_private: Optional[bool] = None
     image: Optional[str] = None  # this is supposed to be a stream to image..
     image_url: Optional[str] = None
-
-    def __post__init__(self, api_token=''):
-        super().__post_init__(api_token=api_token)
-
-    def upload(self):
-        """ Upload a new entity to the server. """
-        if self.id is None:
-            r = self.session.post(self.session.base_url, headers=self.session.headers, data=asdict(self))
-            if r.status_code == 201:
-                return r.json()
-        return r
-
 
 @dataclass(repr=False)
 class Character(Core):
