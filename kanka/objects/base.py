@@ -25,7 +25,6 @@ class KankaObject:
 
 @dataclass(repr=False)
 class Entity(KankaObject):
-    image_full: str
     image_thumb: str
     entity_id: int
     #tags: List[str]
@@ -33,6 +32,7 @@ class Entity(KankaObject):
     created_by: int
     updated_at: datetime
     updated_by: int
+    image_full: Optional[str] = None
     entry: Optional[str] = None
     is_private: Optional[bool] = None
     image: Optional[str] = None
